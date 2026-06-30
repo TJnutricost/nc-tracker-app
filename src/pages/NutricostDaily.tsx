@@ -123,9 +123,9 @@ const COMPARISON_METRICS: { label: string; key: 'orders'|'revenue'|'sessions'|'c
 
 function ComparisonTable({ rows }: { rows: NutricostComparisonRow[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+    <div className="overflow-auto max-h-[420px] rounded-xl border border-gray-200 shadow-sm">
       <table className="min-w-full text-sm border-collapse">
-        <thead>
+        <thead className="sticky top-0 z-10">
           {/* Group label row */}
           <tr>
             <th rowSpan={2} className="bg-slate-800 text-slate-200 text-left px-4 py-2.5 text-xs font-semibold uppercase tracking-wider whitespace-nowrap border-r border-slate-700 align-middle">
@@ -241,9 +241,9 @@ function DeltaCell({ val }: { val: number }) {
 
 function GroupedDailyTable({ rows }: { rows: NutricostDailyRow[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+    <div className="overflow-auto max-h-[560px] rounded-xl border border-gray-200 shadow-sm">
       <table className="min-w-full text-sm border-collapse">
-        <thead>
+        <thead className="sticky top-0 z-10">
           {/* Group label row */}
           <tr>
             <th rowSpan={2} className="bg-slate-800 text-slate-200 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-left border-r border-slate-700 align-middle whitespace-nowrap">
@@ -342,16 +342,12 @@ function RevenueTrend() {
 // Page
 // ---------------------------------------------------------------------------
 export default function NutricostDaily() {
-  const [showAllDaily, setShowAllDaily] = useState(false)
   const [activeTab, setActiveTab] = useState<'monthly' | 'weekly'>('monthly')
 
   const ytd = mockNutricostSummary[0]
   const snapshotRows = mockNutricostSummary.slice(2) // Latest Daily, Current Week, Current Month
 
-  const dailyRows = useMemo(
-    () => showAllDaily ? [...mockNutricostDaily].reverse() : [...mockNutricostDaily].slice(-30).reverse(),
-    [showAllDaily]
-  )
+  const dailyRows = useMemo(() => [...mockNutricostDaily].reverse(), [])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -409,19 +405,9 @@ export default function NutricostDaily() {
 
         {/* ── Daily Data Table ── */}
         <section>
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-baseline gap-3">
-              <h2 className="text-xs font-bold uppercase tracking-widest text-gray-500">Daily Data</h2>
-              <span className="text-xs text-gray-400">
-                {showAllDaily ? `All ${mockNutricostDaily.length} days` : 'Last 30 days'}
-              </span>
-            </div>
-            <button
-              onClick={() => setShowAllDaily(p => !p)}
-              className="text-xs text-blue-600 font-semibold hover:underline"
-            >
-              {showAllDaily ? 'Show last 30' : 'Show all'}
-            </button>
+          <div className="flex items-baseline gap-3 mb-3">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-500">Daily Data</h2>
+            <span className="text-xs text-gray-400">All {mockNutricostDaily.length} days</span>
           </div>
           <GroupedDailyTable rows={dailyRows} />
         </section>

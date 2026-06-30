@@ -576,11 +576,11 @@ export const mockPageAnalytics: PageAnalyticsRow[] = [
 // Settings
 // ---------------------------------------------------------------------------
 export const mockSettings: AppSettings = {
-  shopifyStoreDomain: 'nutricost-shop.myshopify.com',
+  shopifyStoreDomain: 'store.com',
   shopifyApiVersion: '2024-01',
   timezone: 'America/Denver',
   weeklyRollupDay: 'Sunday',
-  alertEmail: 'trevin.jared@nutricost.com',
+  alertEmail: 'test@test.com',
   crDropAlertThreshold: '-10',
   defaultBaselineDays: 30,
   trackerYear: 2026,
